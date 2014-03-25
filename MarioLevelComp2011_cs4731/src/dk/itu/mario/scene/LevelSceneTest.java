@@ -147,8 +147,10 @@ import dk.itu.mario.res.ResourcesManager;
 
 			public void deathActions(){
 				if(Mario.lives <=0){//has no more lives
-					if(recorder != null)
-					recorder.fillGamePlayMetrics((RandomLevel)level);
+					if(recorder != null) {
+                        System.out.println("WRITING TO FILE");
+                        recorder.fillGamePlayMetrics((RandomLevel)level);
+                    }
 					marioComponent.lose();
 				}
 				else // mario still has lives to play :)--> have a new beginning
