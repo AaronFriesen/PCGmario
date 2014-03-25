@@ -12,8 +12,14 @@ import dk.itu.mario.level.MyLevel;
 public class MyLevelGenerator extends CustomizedLevelGenerator implements LevelGenerator{
 
 	public LevelInterface generateLevel(GamePlay playerMetrics) {
-		LevelInterface level = new MyLevel(320,15,new Random().nextLong(),1,LevelInterface.TYPE_OVERGROUND,playerMetrics);
-		return level;
+		LevelInterface level = new MyLevel(320,15,new Random().nextLong(),1,LevelInterface.TYPE_CASTLE,playerMetrics);
+		
+        //do a bunch of calls to generate____Segment();
+        
+
+
+
+        return level;
 	}
 
 	@Override
@@ -21,5 +27,30 @@ public class MyLevelGenerator extends CustomizedLevelGenerator implements LevelG
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    /**
+     * @author Nick Popescu
+     */
+    public void generateRunSegment(LevelInterface curLevel, int start, int end) { //needs params
+
+    }
+    /**
+     * @author Nick Popescu
+     */
+    public void generateJumpSegment(LevelInterface curLevel, int start, int end) {
+
+    }
+    /**
+     * @author Aaron Friesen
+     */
+    public void generateKickSegment(LevelInterface curLevel, int start, int end) {
+
+    }
+    /**
+     * @author Aaron Friesen
+     */
+    public void generateCollectSegment(LevelInterface curLevel, int start, int end) {
+
+    }
 
 }

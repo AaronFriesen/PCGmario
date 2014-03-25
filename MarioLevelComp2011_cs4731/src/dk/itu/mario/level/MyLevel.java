@@ -56,12 +56,19 @@ public class MyLevel extends Level{
 	        while (length < width - 64)
 	        {
 	            //length += buildZone(length, width - length);
+                /*
 				length += buildStraight(length, width-length, false);
 				length += buildStraight(length, width-length, false);
 				length += buildHillStraight(length, width-length);
 				length += buildJump(length, width-length);
 				length += buildTubes(length, width-length);
 				length += buildCannons(length, width-length);
+                */
+				length += buildStraight(length, width-length, false);
+				length += buildStraight(length, width-length, false);
+				length += buildStraight(length, width-length, false);
+				length += buildStraight(length, width-length, false);
+				length += buildStraight(length, width-length, false);
 	        }
 
 	        //set the end piece
@@ -107,7 +114,9 @@ public class MyLevel extends Level{
 
 	    }
 
-
+        /**
+         * Creates a jump segment - sometimes includes little rock thingies
+         */
 	    private int buildJump(int xo, int maxLength)
 	    {	gaps++;
 	    	//jl: jump length
@@ -359,6 +368,9 @@ public class MyLevel extends Level{
 	        return length;
 	    }
 
+        /**
+         * Builds straight lines, no jumps.
+         */
 	    private int buildStraight(int xo, int maxLength, boolean safe)
 	    {
 	        int length = random.nextInt(10) + 2;
@@ -394,6 +406,9 @@ public class MyLevel extends Level{
 	        return length;
 	    }
 
+        /**
+         * Adds blocks, coins, enemies, etc.
+         */
 	    private void decorate(int xStart, int xLength, int floor)
 	    {
 	    	//if its at the very top, just return
