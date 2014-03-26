@@ -55,7 +55,7 @@ public class MyLevel extends Level{
 
 	        //create the start location
 	        length = 0;
-	        length += buildStraight(0, width, true);
+	        //length += buildStraight(0, width, true);
 
 	        //create all of the medium sections
 	        //while (length < width - 64)
@@ -70,7 +70,7 @@ public class MyLevel extends Level{
 				length += buildCannons(length, width-length);
                 */
 	        	
-	        	length += buildStraightManual(length, width-length, height-4, true);
+	        	//buildStraightManual(length, width-length, height-4, true);
 	        	//length += buildStraightManual(length, 5, -5, false);
 	        	//length += buildStraightManual(length, 5, -10, false);
 				//length += buildStraight(length, width-length, false);
@@ -82,7 +82,12 @@ public class MyLevel extends Level{
 	        
 	        //}
 
-	        //set the end piece
+
+	    }
+
+
+        public void end() {
+            //set the end piece
 	        int floor = height - 1 - random.nextInt(4);
 
 	        xExit = length + 8;
@@ -123,12 +128,16 @@ public class MyLevel extends Level{
 
 	        fixWalls();
 
-	    }
 
+
+
+
+
+        }
         /**
          * Creates a jump segment - sometimes includes little rock thingies
          */
-	    private int buildJump(int xo, int maxLength)
+	    public int buildJump(int xo, int maxLength)
 	    {	gaps++;
 	    	//jl: jump length
 	    	//js: the number of blocks that are available at either side for free
@@ -174,10 +183,10 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 
-	    private int buildCannons(int xo, int maxLength)
+	    public int buildCannons(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 2;
 	        if (length > maxLength) length = maxLength;
@@ -220,10 +229,10 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 
-	    private int buildHillStraight(int xo, int maxLength)
+	    public int buildHillStraight(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 10;
 	        if (length > maxLength) length = maxLength;
@@ -299,10 +308,10 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 
-	    private void addEnemyLine(int x0, int x1, int y)
+	    public void addEnemyLine(int x0, int x1, int y)
 	    {
 	        for (int x = x0; x < x1; x++)
 	        {
@@ -325,7 +334,7 @@ public class MyLevel extends Level{
 	        }
 	    }
 
-	    private int buildTubes(int xo, int maxLength)
+	    public int buildTubes(int xo, int maxLength)
 	    {
 	        int length = random.nextInt(10) + 5;
 	        if (length > maxLength) length = maxLength;
@@ -376,13 +385,13 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 
         /**
          * Builds straight lines, no jumps.
          */
-	    private int buildStraight(int xo, int maxLength, boolean safe)
+	    public int buildStraight(int xo, int maxLength, boolean safe)
 	    {
 	        int length = random.nextInt(10) + 2;
 
@@ -414,7 +423,7 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 	    
 	    
@@ -455,13 +464,13 @@ public class MyLevel extends Level{
 	            }
 	        }
 
-	        return length;
+	        return this.length += length;
 	    }
 
         /**
          * Adds blocks, coins, enemies, etc.
          */
-	    private void decorate(int xStart, int xLength, int floor)
+	    public void decorate(int xStart, int xLength, int floor)
 	    {
 	    	//if its at the very top, just return
 	        if (floor < 1)
@@ -532,7 +541,7 @@ public class MyLevel extends Level{
 	        }
 	    }
 
-	    private void fixWalls()
+	    public void fixWalls()
 	    {
 	        boolean[][] blockMap = new boolean[width + 1][height + 1];
 
@@ -556,7 +565,7 @@ public class MyLevel extends Level{
 	        blockify(this, blockMap, width + 1, height + 1);
 	    }
 
-	    private void blockify(Level level, boolean[][] blocks, int width, int height){
+	    public void blockify(Level level, boolean[][] blocks, int width, int height){
 	        int to = 0;
 	        if (type == LevelInterface.TYPE_CASTLE)
 	        {
@@ -693,34 +702,37 @@ public class MyLevel extends Level{
 	        }
 	    }
 	    
-	    public RandomLevel clone() throws CloneNotSupportedException {
+    public RandomLevel clone() throws CloneNotSupportedException {
 
-	    	RandomLevel clone=new RandomLevel(width, height);
+        RandomLevel clone=new RandomLevel(width, height);
 
-	    	clone.xExit = xExit;
-	    	clone.yExit = yExit;
-	    	byte[][] map = getMap();
-	    	SpriteTemplate[][] st = getSpriteTemplate();
-	    	
-	    	for (int i = 0; i < map.length; i++)
-	    		for (int j = 0; j < map[i].length; j++) {
-	    			clone.setBlock(i, j, map[i][j]);
-	    			clone.setSpriteTemplate(i, j, st[i][j]);
-	    	}
-	    	clone.BLOCKS_COINS = BLOCKS_COINS;
-	    	clone.BLOCKS_EMPTY = BLOCKS_EMPTY;
-	    	clone.BLOCKS_POWER = BLOCKS_POWER;
-	    	clone.ENEMIES = ENEMIES;
-	    	clone.COINS = COINS;
-	    	
-	        return clone;
+        clone.xExit = xExit;
+        clone.yExit = yExit;
+        byte[][] map = getMap();
+        SpriteTemplate[][] st = getSpriteTemplate();
 
-	      }
+        for (int i = 0; i < map.length; i++)
+            for (int j = 0; j < map[i].length; j++) {
+                clone.setBlock(i, j, map[i][j]);
+                clone.setSpriteTemplate(i, j, st[i][j]);
+        }
+        clone.BLOCKS_COINS = BLOCKS_COINS;
+        clone.BLOCKS_EMPTY = BLOCKS_EMPTY;
+        clone.BLOCKS_POWER = BLOCKS_POWER;
+        clone.ENEMIES = ENEMIES;
+        clone.COINS = COINS;
+
+        return clone;
+
+    }
 	    
-	    public int getLength(){
-	    	return length;
-	    	
-	    }
+    public int getLength(){
+        return length;
+        
+    }
+
+    public void setXExit(int xExit) { this.xExit = xExit; }
+    public void setYExit(int yExit) { this.yExit = yExit; }
 
 
 }
