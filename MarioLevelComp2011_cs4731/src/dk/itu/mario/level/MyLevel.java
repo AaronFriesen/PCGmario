@@ -16,6 +16,9 @@ public class MyLevel extends Level{
 	 public   int BLOCKS_COINS = 0; // the number of coin blocks
 	 public   int BLOCKS_POWER = 0; // the number of power blocks
 	 public   int COINS = 0; //These are the coins in boxes that Mario collect
+	 
+	 public int length = 0;
+	 public int width, height;
 
  
 	private static Random levelSeedRandom = new Random();
@@ -31,6 +34,8 @@ public class MyLevel extends Level{
 		public MyLevel(int width, int height)
 	    {
 			super(width, height);
+			this.width = width;
+			this.height = height;
 	    }
 
 
@@ -49,12 +54,12 @@ public class MyLevel extends Level{
 	        random = new Random(seed);
 
 	        //create the start location
-	        int length = 0;
+	        length = 0;
 	        length += buildStraight(0, width, true);
 
 	        //create all of the medium sections
-	        while (length < width - 64)
-	        {
+	        //while (length < width - 64)
+	        //{
 	            //length += buildZone(length, width - length);
                 /*
 				length += buildStraight(length, width-length, false);
@@ -64,12 +69,18 @@ public class MyLevel extends Level{
 				length += buildTubes(length, width-length);
 				length += buildCannons(length, width-length);
                 */
-				length += buildStraight(length, width-length, false);
-				length += buildStraight(length, width-length, false);
-				length += buildStraight(length, width-length, false);
-				length += buildStraight(length, width-length, false);
-				length += buildStraight(length, width-length, false);
-	        }
+	        	
+	        	length += buildStraightManual(length, width-length, height-4, true);
+	        	//length += buildStraightManual(length, 5, -5, false);
+	        	//length += buildStraightManual(length, 5, -10, false);
+				//length += buildStraight(length, width-length, false);
+				//length += buildStraight(length, width-length, false);
+				//length += buildStraight(length, width-length, false);
+				//length += buildStraight(length, width-length, false);
+				//length += buildStraight(length, width-length, false);
+	        	
+	        
+	        //}
 
 	        //set the end piece
 	        int floor = height - 1 - random.nextInt(4);
@@ -405,6 +416,47 @@ public class MyLevel extends Level{
 
 	        return length;
 	    }
+	    
+	    
+	    /**
+	     * Build Straight without random seed
+	     */
+	    public int buildStraightManual(int xo, int length, int floorHeight, boolean safe)
+	    {
+	       
+	        if(length<=0){
+	        	return 0;
+	        }
+
+	        if (safe)
+	        	length = 10 + random.nextInt(5);
+
+	        
+
+	        int floor = floorHeight - 1;// - random.nextInt(4);
+
+	        //runs from the specified x position to the length of the segment
+	        for (int x = xo; x < xo + length; x++)
+	        {
+	            for (int y = 0; y < height; y++)
+	            {
+	                if (y >= floorHeight)
+	                {
+	                    setBlock(x, y, GROUND);
+	                }
+	            }
+	        }
+
+	        if (!safe)
+	        {
+	            if (length > 5)
+	            {
+	                decorate(xo, xo + length, floor);
+	            }
+	        }
+
+	        return length;
+	    }
 
         /**
          * Adds blocks, coins, enemies, etc.
@@ -664,6 +716,11 @@ public class MyLevel extends Level{
 	        return clone;
 
 	      }
+	    
+	    public int getLength(){
+	    	return length;
+	    	
+	    }
 
 
 }
