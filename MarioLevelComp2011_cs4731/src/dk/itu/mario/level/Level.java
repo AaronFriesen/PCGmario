@@ -41,8 +41,8 @@ public class Level implements LevelInterface
     protected static final byte TUBE_SIDE_RIGHT = (byte) (11 + 1 * 16);
 
     //The level's width and height
-    protected int width;
-    protected int height;
+    public int width;
+    public int height;
 
     //This map of WIDTH * HEIGHT that contains the level's design
     private byte[][] map;

@@ -76,7 +76,7 @@ public class SonarSoundEngine implements Runnable
     {
         try
         {
-            return SampleLoader.loadSample(resourceName);
+            //return SampleLoader.loadSample(resourceName);
         }
         catch (Exception e)
         {
@@ -84,6 +84,7 @@ public class SonarSoundEngine implements Runnable
             e.printStackTrace();
             return silentSample;
         }
+            return silentSample;
     }
 
     public void play(SonarSample sample, SoundSource soundSource, float volume, float priority, float rate)

@@ -265,6 +265,7 @@ public class MarioComponent extends JComponent implements Runnable, KeyListener,
 		            catch (InterruptedException e)
 		            {
 		            }
+		        Art.stopMusic();
 		        }
 
 		        Art.stopMusic();
