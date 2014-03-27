@@ -14,7 +14,7 @@ public class MyLevelGenerator extends CustomizedLevelGenerator implements LevelG
 	public LevelInterface generateLevel(GamePlay playerMetrics) {
         Random rand = new Random();
 		MyLevel level = new MyLevel(320,15,rand.nextLong(),1,LevelInterface.TYPE_OVERGROUND ,playerMetrics);
-		PlayerType pType = PlayerType.SPEEDER;
+		PlayerType pType = PlayerChooser.choose(playerMetrics);
         System.out.println("width: " + level.width);
         level.buildStraight(0, 8, true);
         //do a bunch of calls to generate____Segment();
